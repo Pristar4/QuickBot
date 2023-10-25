@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickBot", "QuickBot.csproj", "{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rudzoft.ChessLib", "..\ChessLib\src\Rudzoft.ChessLib\Rudzoft.ChessLib.csproj", "{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rudzoft.ChessLib.Test", "..\ChessLib\src\Rudzoft.ChessLib.Test\Rudzoft.ChessLib.Test.csproj", "{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
