@@ -1,4 +1,4 @@
-﻿namespace QuickBot;
+﻿namespace Pristar4.ChessEngine;
 
 internal static class Program {
     private static int Main(string[] args) {

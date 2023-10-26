@@ -1,0 +1,14 @@
+
+
+
+
+
+Add:
+- Search
+
+Improve:
+- Understanding of ChessLib
+
+Unit Tests:
+- Search
+- Evaluation

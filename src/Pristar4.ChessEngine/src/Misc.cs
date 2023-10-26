@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace QuickBot;
+namespace Pristar4.ChessEngine;
 
 /// <summary>
 ///  SyncOut is a class that provides a thread-safe way to write to the console.

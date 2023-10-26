@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Diagnostics;
 using Rudzoft.ChessLib;
 using Rudzoft.ChessLib.Factories;
-using Rudzoft.ChessLib.MoveGeneration;
+using Rudzoft.ChessLib.Fen;
 using Rudzoft.ChessLib.Protocol.UCI;
 using Rudzoft.ChessLib.Types;
 
-namespace QuickBot;
+namespace Pristar4.ChessEngine;
 
-public static class UciExtensions {
+public static class UciExtensions
+{
     // FEN string for the initial position in standard chess
     private const string StartFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     public static readonly Uci Uci = new();
@@ -27,50 +25,65 @@ public static class UciExtensions {
     /// <param name="input"></param>
     /// <param name="states"></param>
     private static void Position(this IUci uci, IGame game,
-                                 string? input, Queue<State> states) {
+        string? input, Stack<State> states)
+    {
         // Split the input string
         var tokensList = new List<string>();
 
-        if (!string.IsNullOrEmpty(input)) {
+        if (!string.IsNullOrEmpty(input))
+        {
             tokensList = input.Split(' ').ToList();
         }
 
-        string fen = "";
+        FenData? fen = null;
         int i = 0;
 
 
         // Check if position is startpos
-        if (tokensList[0] == "position" && tokensList[1] == "startpos") {
+        if (tokensList[0] == "position" && tokensList[1] == "startpos")
+        {
             fen = StartFen;
             game.Pos.Set(fen, game.Pos.ChessMode, new State());
             i = 2;
         }
         // Check if position is in fen format
-        else if (tokensList[0] == "position" && tokensList[1] == "fen") {
+        else if (tokensList[0] == "position" && tokensList[1] == "fen")
+        {
             i = 2;
 
-            while (i < tokensList.Count && tokensList[i] != "moves") {
+            while (i < tokensList.Count && tokensList[i] != "moves")
+            {
                 fen += tokensList[i] + " ";
                 i++;
             }
 
             // Drop the old state and create a new one
-            states = new Queue<State>();
+            states = new Stack<State>();
             game.Pos.Set(fen, game.Pos.ChessMode, new State(), true);
         }
 
         // Process moves irrespective of "startpos" or "fen"
-        if (i < tokensList.Count && tokensList[i] == "moves") {
+
+        List<string> movesString = new();
+
+        if (i < tokensList.Count && tokensList[i] == "moves")
+        {
             i++;
 
-            for (; i < tokensList.Count; i++) {
+            for (; i < tokensList.Count; i++)
+            {
                 string uciMove = tokensList[i];
-                var actual = uci.MoveFromUci(game.Pos, uciMove);
-                game.Pos.MakeMove(actual, new State());
-                states.Enqueue(game.Pos.State); // Todo: this might be wrong
+                movesString.Add(uciMove);
             }
         }
+
+        foreach(var unused in uci.MovesFromUci(game.Pos, states, movesString))
+        {
+            // move is discarded, but each iteration will process the move. 
+            // so the Move is being made on the game.Pos
+        }
     }
+
     /// <summary>
     ///     Uci loop waits for an  command from the Input, parses it, and then calls the appropriate
     ///     function.
@@ -84,16 +97,18 @@ public static class UciExtensions {
     /// <param name="args">
     ///     Command-line arguments
     /// </param>
-    public static void UciLoop(string[] args) {
-        // TODO: maybe dont create a game here?
+    public static void UciLoop(string[] args)
+    {
         const string startFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
         var game = GameFactory.Create(startFen);
 
-        var states = new Queue<State>();
+        var states = new Stack<State>();
         string token = "", cmd = string.Join(" ", args);
 
-        do {
-            if (args.Length == 0) {
+        do
+        {
+            if (args.Length == 0)
+            {
                 cmd = Console.ReadLine() ?? "quit"; // Wait for an input or an end-of-file (EOF)
                 if (string.IsNullOrEmpty(cmd))
                     continue; // Ignore empty strings and wait for the next input
@@ -102,7 +117,8 @@ public static class UciExtensions {
             string[] inputs = cmd.Split(' ');
             token = inputs[0];
 
-            switch (token) {
+            switch (token)
+            {
                 case "quit":
                     // close program
                     break;
@@ -110,20 +126,20 @@ public static class UciExtensions {
                     SyncOut.WriteLine(Uci.BestMove(Move.EmptyMove, Move.EmptyMove));
                     break;
                 case "uci":
-                    SyncOut.WriteLine("id name QuickBot");
+                    SyncOut.WriteLine("id name QuickBot v" + VersionInfo.GetProjectVersion(false));
                     SyncOut.WriteLine("id author Felix Jung");
-                    Console.WriteLine(Uci.ToString()); //TODO: print the current Best Move here
-                    Console.WriteLine(Uci.UciOk());
+                    SyncOut.WriteLine(Uci.ToString()); //TODO: print the current Best Move here
+                    SyncOut.WriteLine(Uci.UciOk());
                     break;
                 case "setoption":
                     // set option
                     break;
                 case "go":
-                    Uci.Go(game, cmd, states);
+                    Go(Uci, game, cmd, states);
                     // start search
                     break;
                 case "position":
-                    Uci.Position(game, cmd, states);
+                    Position(Uci, game, cmd, states);
                     // set position
                     break;
                 case "ucinewgame":
@@ -133,19 +149,31 @@ public static class UciExtensions {
                 case "isready":
                     SyncOut.WriteLine(Uci.ReadyOk());
                     break;
+                case "perft":
+                    // create a new stopwatch
+                    Stopwatch stopwatch = new Stopwatch();
+                    // start stopwatch
+                    stopwatch.Start();
+                    // execute perft
+                    Console.Write(game.Perft(6));
+                    // stop stopwatch
+                    stopwatch.Stop();
+                    // write execution time to console
+                    Console.WriteLine($"Perft execution time: {stopwatch.Elapsed.TotalMilliseconds} ms");
+                    break;
                 case "d":
                     // display board
                     break;
                 case "--help":
                 case "help":
-                    // QuickBot help
+                    // Pristar4.ChessEngine help
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write(
-                            "  ___        _      _    ____        _   \n" +
-                            " / _ \\ _   _(_) ___| | _| __ )  ___ | |_ \n" +
-                            "| | | | | | | |/ __| |/ /  _ \\ / _ \\| __|\n" +
-                            "| |_| | |_| | | (__|   <| |_) | (_) | |_ \n" +
-                            " \\__\\_\\\\__,_|_|\\___|_|\\_\\____/ \\___/ \\__|");
+                        "  ___        _      _    ____        _   \n" +
+                        " / _ \\ _   _(_) ___| | _| __ )  ___ | |_ \n" +
+                        "| | | | | | | |/ __| |/ /  _ \\ / _ \\| __|\n" +
+                        "| |_| | |_| | | (__|   <| |_) | (_) | |_ \n" +
+                        " \\__\\_\\\\__,_|_|\\___|_|\\_\\____/ \\___/ \\__|");
                     Console.ResetColor();
                     SyncOut.WriteLine(" v" + VersionInfo.GetProjectVersion());
                     SyncOut.WriteLine("Commands:");
@@ -161,18 +189,20 @@ public static class UciExtensions {
                     break;
                 default:
                 {
-                    if (!string.IsNullOrEmpty(token) && token[0] != '#') {
+                    if (!string.IsNullOrEmpty(token) && token[0] != '#')
+                    {
                         SyncOut.WriteLine(
-                                $"Unknown command: '{cmd}'. Type help for more information.");
+                            $"Unknown command: '{cmd}'. Type help for more information.");
                     }
 
                     break;
                 }
             }
         } while
-                (token != "quit" &&
-                 args.Length == 0); // The command-line arguments are one-shot
+            (token != "quit" &&
+             args.Length == 0); // The command-line arguments are one-shot
     }
+
     /// <summary>
     ///     Go() is called whenever the engine receives the "go" UCI command.
     ///     It sets the thinking time and other parameters from the input string.
@@ -182,28 +212,34 @@ public static class UciExtensions {
     /// <param name="game"></param>
     /// <param name="input"></param>
     /// <param name="states"></param>
-    private static void Go(this IUci uci, IGame game,
-                           string? input, Queue<State> states) {
+    public static void Go(this IUci uci, IGame game,
+        string? input, Stack<State> states)
+    {
         // Split the input string
         var tokensList = new List<string>();
 
-        if (!string.IsNullOrEmpty(input)) {
+        if (!string.IsNullOrEmpty(input))
+        {
             tokensList = input.Split(' ').ToList();
         }
 
 
-        for (int i = 0; i < tokensList.Count; i++) {
+        for (int i = 0; i < tokensList.Count; i++)
+        {
             string token = tokensList[i];
 
             // TODO: check if this is the correct way to parse the token value
             ulong tokenValue = ulong.TryParse(token, out tokenValue) ? tokenValue : 0;
 
-            switch (token) {
+            switch (token)
+            {
                 case "searchmoves":
-                {        // Needs to be the last command on the line
+                {
+                    // Needs to be the last command on the line
                     i++; // Move past the "searchmoves" token
 
-                    while (i < tokensList.Count) {
+                    while (i < tokensList.Count)
+                    {
                         // check if it is a legal move
                         var move = uci.MoveFromUci(game.Pos, tokensList[i]);
                         game.SearchParameters.SearchMoves.Add(move);
@@ -242,7 +278,7 @@ public static class UciExtensions {
                     break;
                 case "perft":
                     //TODO: check perft command input root? depth?
-                    game.Perft((int)tokenValue);
+                    game.Perft(6);
                     break;
                 case "infinite":
                     game.SearchParameters.Infinite = true;
@@ -253,15 +289,11 @@ public static class UciExtensions {
             }
         }
 
-        // IMoveList moveList = game.Pos.GenerateMoves();
         var search = new Search();
-        // var random = new Random();
 
         var bestMove = search.Think(game);
-        // var extMove = moveList[random.Next(moveList.Length)];
         string actual = uci.MoveToUci(game.Pos, bestMove);
         uci.BestMove(bestMove, Move.EmptyMove);
-        // Todo: this feels like a hack
         Console.WriteLine($"bestmove {actual}");
     }
 }

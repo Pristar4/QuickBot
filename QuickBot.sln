@@ -1,10 +1,24 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickBot", "QuickBot.csproj", "{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rudzoft.ChessLib", "..\ChessLib\src\Rudzoft.ChessLib\Rudzoft.ChessLib.csproj", "{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rudzoft.ChessLib", "..\ChessLib\src\Rudzoft.ChessLib\Rudzoft.ChessLib.csproj", "{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rudzoft.ChessLib.Test", "..\ChessLib\src\Rudzoft.ChessLib.Test\Rudzoft.ChessLib.Test.csproj", "{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rudzoft.ChessLib.Test", "..\ChessLib\src\Rudzoft.ChessLib.Test\Rudzoft.ChessLib.Test.csproj", "{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rudzoft.ChessLib.Benchmark", "..\ChessLib\src\Rudzoft.ChessLib.Benchmark\Rudzoft.ChessLib.Benchmark.csproj", "{83315792-4CFA-4610-9EA9-B000FA1CACBC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rudzoft.Perft", "..\ChessLib\src\Rudzoft.Perft\Rudzoft.Perft.csproj", "{B02CAD61-6CB0-414B-8AD4-D5F05788F936}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rudzoft.Perft.Framework", "..\ChessLib\src\Rudzoft.Perft.Framework\Rudzoft.Perft.Framework.csproj", "{568CB437-B90D-49FB-98E8-5DD9F0740B7A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rudzoft.ChessLib.Perft.Interfaces", "..\ChessLib\src\Rudzoft.ChessLib.Perft.Interfaces\Rudzoft.ChessLib.Perft.Interfaces.csproj", "{24E38248-A6D7-426C-8609-72FD80DD938A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rudzoft.ChessLib.WebApi", "..\ChessLib\src\Rudzoft.ChessLib.WebApi\Rudzoft.ChessLib.WebApi.csproj", "{CE14097B-700B-4469-8FA4-B1CDE7BCF64C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rudzoft.ChessLib.Perft", "..\ChessLib\src\Rudzoft.ChessLib.Perft\Rudzoft.ChessLib.Perft.csproj", "{7575C4AE-F7C8-4F9A-88BD-8103F4198C33}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pristar4.ChessEngine", "src\Pristar4.ChessEngine\Pristar4.ChessEngine.csproj", "{2540EBDF-134B-4FA1-A7F2-9EE7864C04C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pristar4.ChessEngine.Test", "src\Pristar4.ChessEngine.Test\Pristar4.ChessEngine.Test.csproj", "{631E9656-F157-4BFF-9F51-58FE3247EE2D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C8F1709-3EB2-46A6-BD68-F6736B3DADDC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{045A9A91-4B90-4C50-9A94-8C4DB768D2B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -24,5 +34,39 @@ Global
 		{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E1A95C34-9D2D-4319-8D61-A9B43F1B31A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83315792-4CFA-4610-9EA9-B000FA1CACBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83315792-4CFA-4610-9EA9-B000FA1CACBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83315792-4CFA-4610-9EA9-B000FA1CACBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83315792-4CFA-4610-9EA9-B000FA1CACBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B02CAD61-6CB0-414B-8AD4-D5F05788F936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02CAD61-6CB0-414B-8AD4-D5F05788F936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02CAD61-6CB0-414B-8AD4-D5F05788F936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02CAD61-6CB0-414B-8AD4-D5F05788F936}.Release|Any CPU.Build.0 = Release|Any CPU
+		{568CB437-B90D-49FB-98E8-5DD9F0740B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{568CB437-B90D-49FB-98E8-5DD9F0740B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{568CB437-B90D-49FB-98E8-5DD9F0740B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{568CB437-B90D-49FB-98E8-5DD9F0740B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24E38248-A6D7-426C-8609-72FD80DD938A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24E38248-A6D7-426C-8609-72FD80DD938A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24E38248-A6D7-426C-8609-72FD80DD938A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24E38248-A6D7-426C-8609-72FD80DD938A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE14097B-700B-4469-8FA4-B1CDE7BCF64C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE14097B-700B-4469-8FA4-B1CDE7BCF64C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE14097B-700B-4469-8FA4-B1CDE7BCF64C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE14097B-700B-4469-8FA4-B1CDE7BCF64C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7575C4AE-F7C8-4F9A-88BD-8103F4198C33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7575C4AE-F7C8-4F9A-88BD-8103F4198C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7575C4AE-F7C8-4F9A-88BD-8103F4198C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7575C4AE-F7C8-4F9A-88BD-8103F4198C33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2540EBDF-134B-4FA1-A7F2-9EE7864C04C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2540EBDF-134B-4FA1-A7F2-9EE7864C04C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2540EBDF-134B-4FA1-A7F2-9EE7864C04C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2540EBDF-134B-4FA1-A7F2-9EE7864C04C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{631E9656-F157-4BFF-9F51-58FE3247EE2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{631E9656-F157-4BFF-9F51-58FE3247EE2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{631E9656-F157-4BFF-9F51-58FE3247EE2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{631E9656-F157-4BFF-9F51-58FE3247EE2D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 EndGlobal
