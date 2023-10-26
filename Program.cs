@@ -1,10 +1,4 @@
-﻿#region
-
-using System;
-
-#endregion
-
-namespace QuickBot;
+﻿namespace QuickBot;
 
 internal static class Program {
     private static int Main(string[] args) {

@@ -253,11 +253,14 @@ public static class UciExtensions {
             }
         }
 
-        IMoveList moveList = game.Pos.GenerateMoves();
-        var random = new Random();
-        var extMove = moveList[random.Next(moveList.Length)];
-        string actual = uci.MoveToUci(game.Pos, extMove.Move);
-        uci.BestMove(extMove.Move, Move.EmptyMove);
+        // IMoveList moveList = game.Pos.GenerateMoves();
+        var search = new Search();
+        // var random = new Random();
+
+        var bestMove = search.Think(game);
+        // var extMove = moveList[random.Next(moveList.Length)];
+        string actual = uci.MoveToUci(game.Pos, bestMove);
+        uci.BestMove(bestMove, Move.EmptyMove);
         // Todo: this feels like a hack
         Console.WriteLine($"bestmove {actual}");
     }
