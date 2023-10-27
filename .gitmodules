@@ -1,3 +1,3 @@
-[submodule "src/ChessLib"]
+[submodule "ChessLib"]
+	path = ChessLib
 	url = https://github.com/Pristar4/ChessLib
-	path = src/ChessLib
