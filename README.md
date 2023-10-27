@@ -2,11 +2,12 @@
 
 # Install
 - clone project to your local machine
-- clone   https://github.com/rudzen/ChessLib.git  into the same folder as you cloned this project
-- so the folder structure should look like this:
+- run:
+```bash
+git submodule update --init
 ```
-└───rootfolder
-    ├───ChessLib
-    └───project
-
+OR :
+```bash
+./init_submodules.sh
 ```
+This will clone all submodules to your local machine so no dependency is  missing.
