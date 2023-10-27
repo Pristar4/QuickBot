@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\..\ChessLib\src\Rudzoft.ChessLib\Rudzoft.ChessLib.csproj" />
+      <ProjectReference Include="..\ChessLib\src\Rudzoft.ChessLib\Rudzoft.ChessLib.csproj" />
     </ItemGroup>
 
 </Project>
